@@ -18,6 +18,7 @@ var game_over: bool = false
 export(int) var num_scenery
 export(int) var difficulty
 
+
 func _ready():
 	generete_scenery(num_scenery)
 	timer = 1
@@ -26,36 +27,66 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_just_released("ui_cancel"):
-		get_tree().quit()
 	
 	if not game_over:
-		for child in $Entities/PlayerEnemies.get_children():
-			child.set_target($Entities/Player.position)
-			
-		for child in $Entities/ItEnemies.get_children():
-			child.set_target($Entities/It.position)
-	
 		timer += delta
 		if timer >= difficulty:
 			points_inc_value += 1
+			difficulty += 1
 			timer = 0
 			spend_points()
 		points += ((1 + points_inc_value) * delta)
 		
 		if $Entities/It.dead:
 			game_over = true
+			$Entities/Player.game_over = true
+			$Entities/NPC.game_over = true
+			$MainCamera/Control/Score.text = str($Entities/Player.score)
+			
 	else:
-		for child in $Entities/PlayerEnemies.get_children():
-			child.remove_target()
-		for child in $Entities/ItEnemies.get_children():
-			child.remove_target()
 		$MainCamera/Control/GameOverMessage.show()
+		$MainCamera/Control/Score.show()
+		
+	$Entities/Player.healer_location = $Entities/NPC.position
 	
-	$MainCamera.position = ($Entities/NPC.position + $Entities/Player.position) / 2
+	for child in $Entities/PlayerEnemies.get_children():
+		if not $Entities/Player.dead:
+			child.set_target($Entities/Player.position)
+		elif not $Entities/It.dead:
+			child.set_target($Entities/It.position)
+		elif not $Entities/NPC.dead:
+			child.set_target($Entities/NPC.position)
+		else:
+			child.remove_target()
+		
+	for child in $Entities/ItEnemies.get_children():
+		if not $Entities/It.dead:
+			child.set_target($Entities/It.position)
+		elif not $Entities/Player.dead:
+			child.set_target($Entities/Player.position)
+		elif not $Entities/NPC.dead:
+			child.set_target($Entities/NPC.position)
+		else:
+			child.remove_target()
+		
+	for child in $Entities/NPCEnemies.get_children():
+		if not $Entities/NPC.dead:
+			child.set_target($Entities/NPC.position)
+		elif not $Entities/It.dead:
+			child.set_target($Entities/It.position)
+		elif not $Entities/Player.dead:
+			child.set_target($Entities/Player.position)
+		else:
+			child.remove_target()
 	
+	$MainCamera.position = ($Entities/It.position + $Entities/Player.position) / 2
+	$MainTheme.position = $MainCamera.position
 	
-
+func _input(event):
+	if event.is_action_released("ui_cancel"):
+		get_tree().paused = true
+		$MainCamera/Control/Pause.show()
+	
 func generete_scenery(n):
 	for i in range(n):
 		var spawn_location = Vector2(ceil(rand_range(-10000, 1000)), ceil(rand_range(-500, 800)))
@@ -78,14 +109,16 @@ func spend_points():
 		points -= costs[new_enemy_index]
 		var spawn_y
 		if floor(rand_range(0,2)) == 0:
-			spawn_y = rand_range(600,800)
+			spawn_y = rand_range(500,600)
 		else:
-			spawn_y = rand_range(-200,-400)
-		new_enemy.position = Vector2(rand_range($Entities/NPC.position.x - 2000, $Entities/NPC.position.x - 500), spawn_y)
-		if floor(rand_range(0,2)) == 0:
+			spawn_y = rand_range(-100,-200)
+		new_enemy.position = Vector2(rand_range($MainCamera.position.x - 1000, $MainCamera.position.x - 500), spawn_y)
+		if floor(rand_range(0,3)) == 0:
 			$Entities/PlayerEnemies.add_child(new_enemy)
-		else:
+		elif floor(rand_range(0,2)) == 0:
 			$Entities/ItEnemies.add_child(new_enemy)
+		else:
+			$Entities/NPCEnemies.add_child(new_enemy)
 		
 
 func can_afford():
@@ -98,3 +131,11 @@ func can_afford():
 		affordable += [floater]
 		costs += [floater_cost]
 	return [affordable, costs]
+
+
+func _on_Pause_unpause():
+	get_tree().paused = false
+
+
+func _on_MainTheme_finished():
+	$MainTheme.play(0.0)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/npc_step.wav-c03690c28bb4f677f0c1af1408c37a46.sample"
+
+[deps]
+
+source_file="res://World/NPC/npc_step.wav"
+dest_files=[ "res://.import/npc_step.wav-c03690c28bb4f677f0c1af1408c37a46.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

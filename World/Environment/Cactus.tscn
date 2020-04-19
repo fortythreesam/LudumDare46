@@ -4,7 +4,9 @@
 [ext_resource path="res://World/Environment/Tilesheet.png" type="Texture" id=2]
 
 [node name="Cactus" type="Sprite"]
+position = Vector2( -0.191761, 7.60287 )
 texture = ExtResource( 2 )
+offset = Vector2( 0.191761, -7.69261 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 16, 16 )
 script = ExtResource( 1 )

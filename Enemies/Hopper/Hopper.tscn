@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Enemies/Hopper/Sprites/Hopper_Idle_0.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Hopper/Sprites/Hopper_Walk_0.png" type="Texture" id=2]
@@ -17,8 +17,9 @@
 [ext_resource path="res://Enemies/Hopper/Sprites/Hopper_Attack_7.png" type="Texture" id=15]
 [ext_resource path="res://Enemies/Hopper/Sprites/Hopper_Attack_5.png" type="Texture" id=16]
 [ext_resource path="res://Enemies/Hopper/Sprites/Hopper_Attack_6.png" type="Texture" id=17]
+[ext_resource path="res://Enemies/Hopper/Hopper_hurt.wav" type="AudioStream" id=18]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 9 ) ],
 "loop": true,
@@ -46,19 +47,20 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 2.50371, 3.28064 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 4.02122, 5.62317 )
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 4.22904, 3.01867 )
 
 [node name="Hopper" type="AnimatedSprite"]
-position = Vector2( -0.104671, -0.104673 )
-frames = SubResource( 1 )
+position = Vector2( 0.886543, 4.9875 )
+frames = SubResource( 4 )
 animation = "idle"
+frame = 2
 playing = true
+offset = Vector2( -0.991214, -5.09217 )
 script = ExtResource( 12 )
-walk_speed = 25.0
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
@@ -66,8 +68,8 @@ collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 2.26785, -2.18686 )
-shape = SubResource( 2 )
+position = Vector2( 1.71694, -3.61924 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -76,7 +78,13 @@ collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 2.15446, 0.18629 )
-shape = SubResource( 3 )
+position = Vector2( -0.0491991, -3.00901 )
+shape = SubResource( 6 )
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -10.0
+
+[node name="Step" type="AudioStreamPlayer" parent="."]
 [connection signal="animation_finished" from="." to="." method="_on_Hopper_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

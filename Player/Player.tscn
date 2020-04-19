@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Player/PlayerSprites/player_Walk_0.png" type="Texture" id=1]
 [ext_resource path="res://Player/PlayerSprites/player_Walk_6.png" type="Texture" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://Player/PlayerSprites/player_Slide_4.png" type="Texture" id=5]
 [ext_resource path="res://Player/PlayerSprites/player_Walk_3.png" type="Texture" id=6]
 [ext_resource path="res://Player/PlayerSprites/player_Idle_0.png" type="Texture" id=7]
-[ext_resource path="res://Player/PlayerSprites/player_Attack_3.png" type="Texture" id=8]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_1.png" type="Texture" id=8]
 [ext_resource path="res://Player/PlayerSprites/player_Slide_2.png" type="Texture" id=9]
 [ext_resource path="res://Player/Player.gd" type="Script" id=10]
 [ext_resource path="res://Player/PlayerSprites/player_Slide_1.png" type="Texture" id=11]
@@ -31,8 +31,18 @@
 [ext_resource path="res://Player/Player_step.wav" type="AudioStream" id=29]
 [ext_resource path="res://Player/Player_hurt.wav" type="AudioStream" id=30]
 [ext_resource path="res://Player/Player_attack.wav" type="AudioStream" id=31]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_3.png" type="Texture" id=32]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_6.png" type="Texture" id=33]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_0.png" type="Texture" id=34]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_4.png" type="Texture" id=35]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_5.png" type="Texture" id=36]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_7.png" type="Texture" id=37]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_2.png" type="Texture" id=38]
+[ext_resource path="res://Player/slide.wav" type="AudioStream" id=39]
+[ext_resource path="res://Player/heal.wav" type="AudioStream" id=40]
+[ext_resource path="res://Player/PlayerSprites/player_AttackDirections_8.png" type="Texture" id=41]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ) ],
 "loop": false,
@@ -44,6 +54,16 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 13 ), ExtResource( 18 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "attack_start",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 34 ), ExtResource( 8 ), ExtResource( 38 ), ExtResource( 32 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 37 ), ExtResource( 41 ) ],
+"loop": false,
+"name": "attack",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 1 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 2 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "walking",
@@ -53,16 +73,6 @@ animations = [ {
 "loop": true,
 "name": "slide_end",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 18 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "attack_start",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "attack",
-"speed": 12.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 11 ) ],
 "loop": true,
@@ -77,24 +87,24 @@ animations = [ {
 "frames": [ ExtResource( 20 ), ExtResource( 24 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 25 ) ],
 "loop": true,
 "name": "ghost_walk",
-"speed": 5.0
+"speed": 8.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 1.43316, 5.48667 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8.77692, 1.82147 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8.0855, 1.82147 )
 
 [node name="Player" type="AnimatedSprite"]
-position = Vector2( 19.8855, 15.4659 )
-frames = SubResource( 1 )
-animation = "walking"
-frame = 6
-playing = true
+position = Vector2( 20.0472, 21.8266 )
+frames = SubResource( 2 )
+animation = "idle"
+offset = Vector2( -0.647636, -7.08963 )
 flip_h = true
 script = ExtResource( 10 )
 default_speed = 50.0
+attack_time = 1.0
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
@@ -102,32 +112,96 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-visible = false
-position = Vector2( 1.5, 1.495 )
-shape = SubResource( 2 )
+position = Vector2( 0.842121, -5.59548 )
+shape = SubResource( 3 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
+monitoring = false
+monitorable = false
 collision_layer = 2
 collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-visible = false
-position = Vector2( -9.5, 0 )
-shape = SubResource( 3 )
+[node name="Col0" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -2.66669, -0.447294 )
+rotation = -1.5708
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col1" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -4.60246, 0.804073 )
+rotation = -1.18682
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -6.21061, -1.31576 )
+rotation = -0.837758
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col3" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -8.33044, -2.33912 )
+rotation = -0.410152
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col4" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -11.1812, -7.01738 )
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col5" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -8.91523, -9.13721 )
+rotation = 0.446804
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col6" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -6.50301, -10.2337 )
+rotation = 0.738274
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col7" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -4.16388, -10.8916 )
+rotation = 1.15192
+shape = SubResource( 4 )
+disabled = true
+
+[node name="Col8" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -2.11715, -11.7687 )
+rotation = 1.5708
+shape = SubResource( 4 )
 disabled = true
 
 [node name="Step" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 29 )
-volume_db = -27.549
+volume_db = -15.0
 
 [node name="Hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 30 )
+volume_db = -15.0
 pitch_scale = 1.08
 
 [node name="Attack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 31 )
-volume_db = -19.974
+volume_db = -20.0
 pitch_scale = 0.76
+
+[node name="DirectionLine" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 66.6538, 24.6323, 0, 0 )
+width = 1.0
+default_color = Color( 0.145098, 0.0745098, 0.0666667, 0.0666667 )
+
+[node name="Slide" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 39 )
+volume_db = -15.0
+
+[node name="Heal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 40 )
+volume_db = -10.0
 [connection signal="animation_finished" from="." to="." method="_on_Player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]

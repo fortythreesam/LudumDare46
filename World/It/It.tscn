@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://World/It/Sprites/it_Dying_3.png" type="Texture" id=1]
 [ext_resource path="res://World/It/Sprites/it_Dying_4.png" type="Texture" id=2]
@@ -16,8 +16,9 @@
 [ext_resource path="res://World/It/It.gd" type="Script" id=14]
 [ext_resource path="res://World/It/it_hurt.wav" type="AudioStream" id=15]
 [ext_resource path="res://World/It/it_step.wav" type="AudioStream" id=16]
+[ext_resource path="res://World/It/heal.wav" type="AudioStream" id=17]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 4 ) ],
 "loop": true,
@@ -40,30 +41,38 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 2.58503, 2.83728 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 2.58503, 3.82049 )
 
 [node name="It" type="AnimatedSprite"]
-frames = SubResource( 1 )
+position = Vector2( -0.356869, 3.65313 )
+frames = SubResource( 3 )
 animation = "idle"
 frame = 2
 playing = true
+offset = Vector2( 0.356869, -3.65313 )
 script = ExtResource( 14 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
-collision_mask = 7
+collision_layer = 2
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 0.509069, 1.48252 )
-shape = SubResource( 2 )
+position = Vector2( -0.0295472, -3.05723 )
+shape = SubResource( 4 )
 
 [node name="Hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
+volume_db = -5.0
 
 [node name="Step" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -30.305
+volume_db = -20.0
 pitch_scale = 0.6
+
+[node name="Heal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -10.0
 [connection signal="animation_finished" from="." to="." method="_on_It_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

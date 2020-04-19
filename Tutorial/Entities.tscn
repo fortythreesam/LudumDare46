@@ -1,0 +1,180 @@
+[gd_scene load_steps=61 format=2]
+
+[ext_resource path="res://Player/PlayerSprites/player_Attack_0.png" type="Texture" id=3]
+[ext_resource path="res://World/It/Sprites/it_Walk_3.png" type="Texture" id=5]
+[ext_resource path="res://World/It/Sprites/it_Idle_2.png" type="Texture" id=6]
+[ext_resource path="res://World/It/Sprites/it_Dying_0.png" type="Texture" id=7]
+[ext_resource path="res://World/It/Sprites/it_Walk_1.png" type="Texture" id=8]
+[ext_resource path="res://World/It/Sprites/it_Walk_0.png" type="Texture" id=9]
+[ext_resource path="res://World/It/Sprites/it_Dying_3.png" type="Texture" id=48]
+[ext_resource path="res://World/It/Sprites/it_Dying_1.png" type="Texture" id=49]
+[ext_resource path="res://World/It/Sprites/it_Walk_2.png" type="Texture" id=50]
+[ext_resource path="res://World/It/Sprites/it_Dying_4.png" type="Texture" id=51]
+[ext_resource path="res://World/It/Sprites/it_Idle_0.png" type="Texture" id=52]
+[ext_resource path="res://World/It/Sprites/it_Idle_1.png" type="Texture" id=53]
+[ext_resource path="res://World/It/Sprites/it_Dying_2.png" type="Texture" id=54]
+[ext_resource path="res://World/It/Sprites/it_Dead_0.png" type="Texture" id=55]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_5.png" type="Texture" id=56]
+[ext_resource path="res://Player/PlayerSprites/player_Attack_1.png" type="Texture" id=57]
+[ext_resource path="res://Player/PlayerSprites/player_Attack_3.png" type="Texture" id=58]
+[ext_resource path="res://Player/PlayerSprites/player_Idle_0.png" type="Texture" id=59]
+[ext_resource path="res://Player/PlayerSprites/player_Slide_2.png" type="Texture" id=60]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_3.png" type="Texture" id=61]
+[ext_resource path="res://Player/PlayerSprites/player_Slide_4.png" type="Texture" id=62]
+[ext_resource path="res://Player/PlayerSprites/player_Attack_2.png" type="Texture" id=63]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_7.png" type="Texture" id=64]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_4.png" type="Texture" id=65]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_0.png" type="Texture" id=66]
+[ext_resource path="res://Player/PlayerSprites/player_Slide_1.png" type="Texture" id=67]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_3.png" type="Texture" id=68]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_4.png" type="Texture" id=69]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=70]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_5.png" type="Texture" id=71]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_1.png" type="Texture" id=72]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_0.png" type="Texture" id=73]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_6.png" type="Texture" id=74]
+[ext_resource path="res://Player/PlayerSprites/player_IdleNoWeapon_0.png" type="Texture" id=75]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_2.png" type="Texture" id=76]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_1.png" type="Texture" id=77]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_7.png" type="Texture" id=78]
+[ext_resource path="res://Player/PlayerSprites/player_WalkNoWeapon_3.png" type="Texture" id=79]
+[ext_resource path="res://World/NPC/Sprites/NPC_Idle_0.png" type="Texture" id=80]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_1.png" type="Texture" id=81]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_5.png" type="Texture" id=82]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_4.png" type="Texture" id=83]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_2.png" type="Texture" id=84]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_7.png" type="Texture" id=85]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_0.png" type="Texture" id=86]
+[ext_resource path="res://World/NPC/Sprites/NPC_Dying_0.png" type="Texture" id=87]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_6.png" type="Texture" id=88]
+[ext_resource path="res://World/NPC/Sprites/NPC_Dead_0.png" type="Texture" id=89]
+[ext_resource path="res://World/NPC/Sprites/NPC_Dying_1.png" type="Texture" id=90]
+[ext_resource path="res://World/NPC/Sprites/NPC_Dying_3.png" type="Texture" id=91]
+[ext_resource path="res://World/NPC/Sprites/NPC_Dying_2.png" type="Texture" id=92]
+[ext_resource path="res://World/It/It.tscn" type="PackedScene" id=93]
+[ext_resource path="res://World/NPC/NPC.tscn" type="PackedScene" id=94]
+[ext_resource path="res://Player/PlayerSprites/player_Slide_3.png" type="Texture" id=95]
+[ext_resource path="res://Player/PlayerSprites/player_Slide_0.png" type="Texture" id=96]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_6.png" type="Texture" id=97]
+[ext_resource path="res://Player/PlayerSprites/player_Walk_2.png" type="Texture" id=98]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 80 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 89 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 87 ), ExtResource( 90 ), ExtResource( 90 ), ExtResource( 90 ), ExtResource( 92 ), ExtResource( 91 ) ],
+"loop": false,
+"name": "dying",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 86 ), ExtResource( 81 ), ExtResource( 84 ), ExtResource( 68 ), ExtResource( 83 ), ExtResource( 82 ), ExtResource( 88 ), ExtResource( 85 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 60 ), ExtResource( 60 ), ExtResource( 60 ), ExtResource( 60 ) ],
+"loop": false,
+"name": "slide",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 59 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 57 ), ExtResource( 63 ) ],
+"loop": true,
+"name": "attack_start",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 58 ), ExtResource( 58 ) ],
+"loop": true,
+"name": "attack",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 66 ), ExtResource( 72 ), ExtResource( 98 ), ExtResource( 61 ), ExtResource( 65 ), ExtResource( 56 ), ExtResource( 97 ), ExtResource( 64 ) ],
+"loop": true,
+"name": "walking",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 95 ), ExtResource( 62 ) ],
+"loop": true,
+"name": "slide_end",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 96 ), ExtResource( 67 ) ],
+"loop": true,
+"name": "slide_start",
+"speed": 24.0
+}, {
+"frames": [ ExtResource( 75 ) ],
+"loop": true,
+"name": "ghost_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ), ExtResource( 77 ), ExtResource( 76 ), ExtResource( 79 ), ExtResource( 69 ), ExtResource( 71 ), ExtResource( 74 ), ExtResource( 78 ) ],
+"loop": true,
+"name": "ghost_walk",
+"speed": 8.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 52 ), ExtResource( 53 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 49 ), ExtResource( 54 ), ExtResource( 48 ), ExtResource( 51 ) ],
+"loop": false,
+"name": "dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 50 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[node name="Entities" type="YSort"]
+position = Vector2( -1.36224, 0 )
+
+[node name="NPC" parent="." instance=ExtResource( 94 )]
+position = Vector2( 242.811, 136.812 )
+frames = SubResource( 1 )
+playing = false
+speed = 15.0
+
+[node name="Player" parent="." instance=ExtResource( 70 )]
+position = Vector2( 159.588, 140.302 )
+frames = SubResource( 2 )
+max_health = 5.0
+
+[node name="It" parent="." instance=ExtResource( 93 )]
+position = Vector2( 220.95, 138.795 )
+frames = SubResource( 3 )
+speed = 15
+
+[node name="ItEnemies" type="YSort" parent="."]
+
+[node name="PlayerEnemies" type="YSort" parent="."]
+
+[node name="NPCEnemies" type="YSort" parent="."]
+
+[node name="Scenery" type="YSort" parent="."]

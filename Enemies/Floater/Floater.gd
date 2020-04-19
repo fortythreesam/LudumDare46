@@ -2,15 +2,21 @@ extends AnimatedSprite
 
 export(float) var walk_speed := 20
 
+const tag:String = "Floater"
 var target:Vector2
 var move_direction:Vector2
 var dead: bool = false
 
 var flicker_timer: float = 0;
 
+var knockback_direction: Vector2
+var knockback: float
+
 func _ready():
 	remove_target()
 	play("default")
+	knockback = 0
+	knockback_direction = Vector2(0,0)
 
 func _process(delta):
 	if not dead:
@@ -27,6 +33,9 @@ func _process(delta):
 		flicker_timer -= delta
 	else: 
 		modulate = Color(1,1,1)
+	position += knockback_direction * knockback * delta
+	if knockback > 0:
+		knockback -= 200 * delta
 		
 func set_target(new_target:Vector2):
 	target = new_target
@@ -40,6 +49,12 @@ func _on_Hitbox_area_entered(area):
 
 func _on_Hurtbox_area_entered(area):
 	if area.get_name() == "Hitbox":
+		knockback_direction = position.direction_to(area.get_parent().position) * -1
+		if knockback_direction.x > 0:
+			flip_h = false
+		else:
+			flip_h = true
+		knockback = 100
 		kill()
 
 func kill():
@@ -47,6 +62,7 @@ func kill():
 		flicker_timer = 0.1
 		dead = true
 		play('dying')
+		$Hurt.play()
 		$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
 	

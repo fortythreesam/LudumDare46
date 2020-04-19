@@ -1,70 +1,59 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/World.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/Hopper/Hopper.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/Floater/Floater.tscn" type="PackedScene" id=4]
-[ext_resource path="res://World/UI/Healthbar/Healthbar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://World/NPC/NPC.tscn" type="PackedScene" id=6]
 [ext_resource path="res://World/It/It.tscn" type="PackedScene" id=7]
 [ext_resource path="res://World/UI/Font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://World/Pause.gd" type="Script" id=9]
+[ext_resource path="res://World/UI/menu_sound.wav" type="AudioStream" id=10]
+[ext_resource path="res://World/MainTheme.wav" type="AudioStream" id=11]
 
 [node name="World" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 2 )
 num_scenery = 1000
-difficulty = 1
-
-[node name="Background" type="ColorRect" parent="."]
-visible = false
-margin_left = -1525.16
-margin_top = -46.0266
-margin_right = 853.839
-margin_bottom = 336.973
-color = Color( 0.768627, 0.580392, 0.376471, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+difficulty = 15
 
 [node name="Entities" type="YSort" parent="."]
 position = Vector2( -1.36224, 0 )
 
-[node name="ItEnemies" type="YSort" parent="Entities"]
-
-[node name="Hopper" parent="Entities/ItEnemies" instance=ExtResource( 3 )]
-position = Vector2( 57.159, 110.233 )
-frame = 1
-
-[node name="Floater" parent="Entities/ItEnemies" instance=ExtResource( 4 )]
-position = Vector2( 51.3903, 169.585 )
-frame = 8
-
 [node name="NPC" parent="Entities" instance=ExtResource( 6 )]
 position = Vector2( 242.811, 136.812 )
-frame = 6
 speed = 15.0
 
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
 position = Vector2( 140.801, 140.459 )
-animation = "idle"
-frame = 0
 max_health = 5.0
-
-[node name="Scenery" type="YSort" parent="Entities"]
+attack_time = 0.15
 
 [node name="It" parent="Entities" instance=ExtResource( 7 )]
 position = Vector2( 220.95, 138.795 )
-frame = 0
-health = 3
 speed = 15
+
+[node name="ItEnemies" type="YSort" parent="Entities"]
 
 [node name="PlayerEnemies" type="YSort" parent="Entities"]
 
+[node name="Hopper1" parent="Entities/PlayerEnemies" instance=ExtResource( 3 )]
+position = Vector2( -366.638, 152 )
+attack_cooldown = 1.0
+
+[node name="Floater2" parent="Entities/PlayerEnemies" instance=ExtResource( 4 )]
+position = Vector2( -166.638, 152 )
+frame = 2
+
+[node name="NPCEnemies" type="YSort" parent="Entities"]
+
+[node name="Scenery" type="YSort" parent="Entities"]
+
 [node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2( 790.419, -69.7352 )
+position = Vector2( 792, -72 )
 current = true
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Control" type="Control" parent="MainCamera"]
@@ -84,17 +73,142 @@ margin_top = 34.0
 margin_right = 479.0
 margin_bottom = 65.0
 custom_fonts/font = ExtResource( 8 )
-text = "game over"
+text = "lose
+final score
+-----------------"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Healthbar" parent="MainCamera/Control" instance=ExtResource( 5 )]
-margin_left = 3.42491
-margin_top = 3.08579
-margin_right = 3.42493
-margin_bottom = 3.08578
-[connection signal="health_updated" from="Entities/Player" to="MainCamera/Control/Healthbar" method="_on_Player_health_updated"]
-[connection signal="new_max_health" from="Entities/Player" to="MainCamera/Control/Healthbar" method="_on_Player_new_max_health"]
+[node name="Score" type="Label" parent="MainCamera/Control"]
+visible = false
+margin_left = 2.0
+margin_top = 79.0
+margin_right = 479.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 8 )
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pause" type="Control" parent="MainCamera/Control"]
+pause_mode = 2
+visible = false
+margin_left = 240.0
+margin_top = 135.0
+margin_right = 280.0
+margin_bottom = 175.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MainCamera/Control/Pause"]
+margin_left = -718.0
+margin_top = -202.0
+margin_right = -595.0
+margin_bottom = -140.0
+rect_scale = Vector2( 12.2427, 6.8452 )
+color = Color( 0.713726, 0.607843, 0.407843, 0.4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuItems" type="Control" parent="MainCamera/Control/Pause"]
+margin_left = -6.41901
+margin_top = -26.2648
+margin_right = -6.41901
+margin_bottom = -26.2648
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Return" type="Label" parent="MainCamera/Control/Pause/MenuItems"]
+margin_left = -240.0
+margin_top = -40.0
+margin_right = 240.0
+margin_bottom = -24.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 8 )
+text = "Return to Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Volume" type="Label" parent="MainCamera/Control/Pause/MenuItems"]
+margin_left = -240.0
+margin_top = -16.0
+margin_right = 240.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 8 )
+text = "Volume: - 92 +"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="Label" parent="MainCamera/Control/Pause/MenuItems"]
+margin_left = -240.0
+margin_top = 8.0
+margin_right = 240.0
+margin_bottom = 24.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 8 )
+text = "Toggle Fullscreen"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Label" parent="MainCamera/Control/Pause/MenuItems"]
+margin_left = -240.0
+margin_top = 32.0
+margin_right = 239.0
+margin_bottom = 48.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 8 )
+text = "Return To Menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Label" parent="MainCamera/Control/Pause/MenuItems"]
+margin_left = -240.0
+margin_top = 56.0
+margin_right = 240.0
+margin_bottom = 72.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 8 )
+text = "Quit Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuSound" type="AudioStreamPlayer" parent="MainCamera/Control/Pause"]
+stream = ExtResource( 10 )
+volume_db = -22.0
+
+[node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
+area_mask = 0
+[connection signal="unpause" from="MainCamera/Control/Pause" to="." method="_on_Pause_unpause"]
+[connection signal="mouse_entered" from="MainCamera/Control/Pause/MenuItems/Return" to="MainCamera/Control/Pause" method="_on_Return_mouse_entered"]
+[connection signal="mouse_entered" from="MainCamera/Control/Pause/MenuItems/Volume" to="MainCamera/Control/Pause" method="_on_Volume_mouse_entered"]
+[connection signal="mouse_entered" from="MainCamera/Control/Pause/MenuItems/Fullscreen" to="MainCamera/Control/Pause" method="_on_Fullscreen_mouse_entered"]
+[connection signal="mouse_entered" from="MainCamera/Control/Pause/MenuItems/MainMenu" to="MainCamera/Control/Pause" method="_on_MainMenu_mouse_entered"]
+[connection signal="mouse_entered" from="MainCamera/Control/Pause/MenuItems/Quit" to="MainCamera/Control/Pause" method="_on_Quit_mouse_entered"]
+[connection signal="finished" from="MainTheme" to="." method="_on_MainTheme_finished"]

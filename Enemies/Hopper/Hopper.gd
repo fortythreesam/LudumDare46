@@ -4,7 +4,7 @@ export(float) var walk_speed = 25
 export(float) var jump_speed = 60
 export(float) var attack_cooldown = 10
 
-
+const tag:String = "Hopper"
 var target:Vector2
 var move_direction:Vector2
 var target_direction: Vector2
@@ -14,6 +14,8 @@ var reaction_timer:float = 0;
 var reacting: bool = false
 var kill: bool = false
 var flicker_timer: float = 0;
+var knockback_direction: Vector2
+var knockback: float
 
 func _ready():
 	remove_target()
@@ -21,6 +23,8 @@ func _ready():
 	cooldown_timer = 0
 	reaction_time = rand_range(0.1,0.6)
 	reacting = true
+	knockback = 0
+	knockback_direction = Vector2(0,0)
 	kill = false
 
 func _process(delta):
@@ -36,7 +40,6 @@ func _process(delta):
 						move_direction = Vector2(sign(floor(target.x - position.x)), sign(floor(target.y - position.y)))
 						reacting = false
 				if position.distance_to(target) < 50 and cooldown_timer <= 0:
-					print("test")
 					play("attack_start")
 					cooldown_timer = attack_cooldown
 				elif not ['walk', 'attack_start'].has(animation):
@@ -58,6 +61,9 @@ func _process(delta):
 		flicker_timer -= delta
 	else: 
 		modulate = Color(1,1,1)
+	position += knockback_direction * knockback * delta
+	if knockback > 0:
+		knockback -= 200 * delta
 		
 
 
@@ -74,14 +80,21 @@ func _on_Hopper_animation_finished():
 			$Hitbox/CollisionShape2D.set_deferred("disabled", false)
 			play("attack")
 		"attack":
-			$Hitbox/CollisionShape2D.set_deferred("disabled", false)
+			$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 			play("idle")
 			
 
 
 func _on_Hurtbox_area_entered(area):
 	if area.get_name() == "Hitbox":
+		knockback_direction = position.direction_to(area.get_parent().position) * -1
+		if knockback_direction.x > 0:
+			flip_h = false
+		else:
+			flip_h = true
+		knockback = 150
 		flicker_timer = 0.1
+		$Hurt.play()
 		kill = true
 		$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)

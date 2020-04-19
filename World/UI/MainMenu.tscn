@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Enemies/Hopper/Hopper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/It/It.tscn" type="PackedScene" id=2]
@@ -6,25 +6,34 @@
 [ext_resource path="res://World/UI/MainMenu.gd" type="Script" id=4]
 [ext_resource path="res://World/UI/Font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://World/UI/menu_sound.wav" type="AudioStream" id=6]
+[ext_resource path="res://World/UI/MenuTheme.wav" type="AudioStream" id=7]
+[ext_resource path="res://World/UI/OpenSansPXBold.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Tutorial/Credit.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0 ), 0.0, 1.4, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="DynamicFont" id=1]
+outline_color = Color( 0.4, 0.254902, 0.117647, 1 )
+font_data = ExtResource( 8 )
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 4 )
+camera_curve = SubResource( 2 )
 
 [node name="Entities" type="YSort" parent="."]
 
 [node name="It" parent="Entities" instance=ExtResource( 2 )]
 position = Vector2( 373.425, 127.101 )
-frame = 0
+frame = 1
 menu = true
 
 [node name="Hopper" parent="Entities" instance=ExtResource( 1 )]
 position = Vector2( 115.861, 86.8697 )
-frame = 1
 attack_cooldown = 13.0
 
 [node name="Hopper2" parent="Entities" instance=ExtResource( 1 )]
 position = Vector2( 49.9236, 125.002 )
-frame = 1
 attack_cooldown = 7.0
 
 [node name="Hopper3" parent="Entities" instance=ExtResource( 1 )]
@@ -33,21 +42,19 @@ attack_cooldown = 19.0
 
 [node name="Hopper4" parent="Entities" instance=ExtResource( 1 )]
 position = Vector2( 107.917, 166.313 )
-frame = 2
 attack_cooldown = 24.0
 
 [node name="Floater" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 73.7392, 149.722 )
-frame = 5
 
 [node name="Floater2" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 64.8367, 92.8697 )
-frame = 0
+frame = 5
 offset = Vector2( -5, -4.31875 )
 
 [node name="Floater3" parent="Entities" instance=ExtResource( 3 )]
 position = Vector2( 107.9, 112.178 )
-frame = 0
+frame = 5
 offset = Vector2( 0, 1 )
 
 [node name="Scenery" type="YSort" parent="Entities"]
@@ -68,6 +75,7 @@ __meta__ = {
 margin_top = 104.0
 margin_right = 480.0
 margin_bottom = 120.0
+mouse_filter = 1
 custom_fonts/font = ExtResource( 5 )
 text = "Start Game"
 align = 1
@@ -80,6 +88,7 @@ __meta__ = {
 margin_top = 120.0
 margin_right = 480.0
 margin_bottom = 136.0
+mouse_filter = 1
 custom_fonts/font = ExtResource( 5 )
 text = "Tutorial"
 align = 1
@@ -88,10 +97,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quit" type="Label" parent="Control/Node"]
+[node name="Fullscreen" type="Label" parent="Control/Node"]
 margin_top = 136.0
 margin_right = 480.0
 margin_bottom = 152.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Fullscreen"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Volume" type="Label" parent="Control/Node"]
+margin_top = 152.0
+margin_right = 480.0
+margin_bottom = 168.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Volume: - 50 +"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Label" parent="Control/Node"]
+margin_top = 168.0
+margin_right = 480.0
+margin_bottom = 184.0
+mouse_filter = 1
 custom_fonts/font = ExtResource( 5 )
 text = "Quit"
 align = 1
@@ -102,4 +138,70 @@ __meta__ = {
 
 [node name="MenuSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -22.481
+volume_db = -15.0
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -15.0
+autoplay = true
+
+[node name="Tutorial" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Label" parent="Tutorial"]
+margin_top = 384.0
+margin_right = 480.0
+margin_bottom = 512.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.988235, 0.890196, 0.65098, 1 )
+custom_colors/font_color_shadow = Color( 0.552941, 0.392157, 0.290196, 1 )
+custom_constants/shadow_offset_x = -1
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = -1
+text = "Don't let your companions die as you cross the desert
+
+More enemies will approach you the longer you travel
+
+Stay close to the party to heal
+
+Good luck"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Story" type="Label" parent="Tutorial"]
+margin_top = 272.0
+margin_right = 480.0
+margin_bottom = 384.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.988235, 0.890196, 0.65098, 1 )
+custom_colors/font_color_shadow = Color( 0.552941, 0.392157, 0.290196, 1 )
+custom_constants/shadow_offset_x = -1
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = -1
+text = "WASD/Arrow keys to move
+Left click to attack
+Shift to slide"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credit" parent="." instance=ExtResource( 9 )]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 240, 408 )
+current = true
+[connection signal="mouse_entered" from="Control/Node/StartGame" to="." method="_on_StartGame_mouse_entered"]
+[connection signal="mouse_entered" from="Control/Node/Tutorial" to="." method="_on_Tutorial_mouse_entered"]
+[connection signal="mouse_entered" from="Control/Node/Fullscreen" to="." method="_on_Fullscreen_mouse_entered"]
+[connection signal="mouse_entered" from="Control/Node/Volume" to="." method="_on_Volume_mouse_entered"]
+[connection signal="mouse_entered" from="Control/Node/Quit" to="." method="_on_Quit_mouse_entered"]
+[connection signal="finished" from="BackgroundMusic" to="." method="_on_BackgroundMusic_finished"]
