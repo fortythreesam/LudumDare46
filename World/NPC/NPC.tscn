@@ -1,0 +1,66 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_1.png" type="Texture" id=1]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_3.png" type="Texture" id=2]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_4.png" type="Texture" id=3]
+[ext_resource path="res://World/NPC/Sprites/NPC_Idle_0.png" type="Texture" id=4]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_5.png" type="Texture" id=5]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_0.png" type="Texture" id=6]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_2.png" type="Texture" id=7]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_7.png" type="Texture" id=8]
+[ext_resource path="res://World/NPC/NPC.gd" type="Script" id=9]
+[ext_resource path="res://World/NPC/Sprites/NPC_walk_6.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.859593, 0.863281, 0.391174, 0.603922, 0.960938, 0.946392, 0.72821, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+trail_divisor = 2
+emission_shape = 1
+emission_sphere_radius = 40.0
+flag_align_y = true
+flag_disable_z = true
+direction = Vector3( 1.008, 0, 0 )
+spread = 70.33
+gravity = Vector3( 0, -98, 0 )
+angular_velocity = -74.67
+angular_velocity_random = 1.0
+orbit_velocity = -0.1
+orbit_velocity_random = 0.3
+damping = 3.74
+color_ramp = SubResource( 3 )
+
+[node name="NPC" type="AnimatedSprite"]
+frames = SubResource( 1 )
+animation = "walk"
+frame = 7
+playing = true
+flip_h = true
+script = ExtResource( 9 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -10.2196, 1.75193 )
+scale = Vector2( 0.991211, 0.901353 )
+amount = 100
+lifetime = 2.0
+speed_scale = 0.5
+explosiveness = 0.6
+randomness = 0.85
+fract_delta = false
+process_material = SubResource( 4 )

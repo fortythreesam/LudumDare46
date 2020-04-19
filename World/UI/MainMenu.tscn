@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Enemies/Hopper/Hopper.tscn" type="PackedScene" id=1]
+[ext_resource path="res://World/It/It.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemies/Floater/Floater.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/UI/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://World/UI/Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://World/UI/menu_sound.wav" type="AudioStream" id=6]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Entities" type="YSort" parent="."]
+
+[node name="It" parent="Entities" instance=ExtResource( 2 )]
+position = Vector2( 373.425, 127.101 )
+frame = 0
+menu = true
+
+[node name="Hopper" parent="Entities" instance=ExtResource( 1 )]
+position = Vector2( 115.861, 86.8697 )
+frame = 1
+attack_cooldown = 13.0
+
+[node name="Hopper2" parent="Entities" instance=ExtResource( 1 )]
+position = Vector2( 49.9236, 125.002 )
+frame = 1
+attack_cooldown = 7.0
+
+[node name="Hopper3" parent="Entities" instance=ExtResource( 1 )]
+position = Vector2( 46.3487, 186.571 )
+attack_cooldown = 19.0
+
+[node name="Hopper4" parent="Entities" instance=ExtResource( 1 )]
+position = Vector2( 107.917, 166.313 )
+frame = 2
+attack_cooldown = 24.0
+
+[node name="Floater" parent="Entities" instance=ExtResource( 3 )]
+position = Vector2( 73.7392, 149.722 )
+frame = 5
+
+[node name="Floater2" parent="Entities" instance=ExtResource( 3 )]
+position = Vector2( 64.8367, 92.8697 )
+frame = 0
+offset = Vector2( -5, -4.31875 )
+
+[node name="Floater3" parent="Entities" instance=ExtResource( 3 )]
+position = Vector2( 107.9, 112.178 )
+frame = 0
+offset = Vector2( 0, 1 )
+
+[node name="Scenery" type="YSort" parent="Entities"]
+
+[node name="Control" type="Control" parent="."]
+margin_left = 2.98023e-08
+margin_top = -5.96046e-08
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 11.9908, 6.74278 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node" type="Node" parent="Control"]
+
+[node name="StartGame" type="Label" parent="Control/Node"]
+margin_top = 104.0
+margin_right = 480.0
+margin_bottom = 120.0
+custom_fonts/font = ExtResource( 5 )
+text = "Start Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tutorial" type="Label" parent="Control/Node"]
+margin_top = 120.0
+margin_right = 480.0
+margin_bottom = 136.0
+custom_fonts/font = ExtResource( 5 )
+text = "Tutorial"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Label" parent="Control/Node"]
+margin_top = 136.0
+margin_right = 480.0
+margin_bottom = 152.0
+custom_fonts/font = ExtResource( 5 )
+text = "Quit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -22.481
