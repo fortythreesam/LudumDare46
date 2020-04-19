@@ -31,6 +31,7 @@ attack_time = 0.15
 
 [node name="It" parent="Entities" instance=ExtResource( 7 )]
 position = Vector2( 220.95, 138.795 )
+frame = 0
 speed = 15
 
 [node name="ItEnemies" type="YSort" parent="Entities"]
@@ -39,11 +40,12 @@ speed = 15
 
 [node name="Hopper1" parent="Entities/PlayerEnemies" instance=ExtResource( 3 )]
 position = Vector2( -366.638, 152 )
+frame = 0
 attack_cooldown = 1.0
 
 [node name="Floater2" parent="Entities/PlayerEnemies" instance=ExtResource( 4 )]
 position = Vector2( -166.638, 152 )
-frame = 2
+frame = 8
 
 [node name="NPCEnemies" type="YSort" parent="Entities"]
 
